@@ -1,10 +1,9 @@
 <!DOCTYPE html>
    <head>
-      <title>{{ title }}</title>
       <link rel="stylesheet" href="../static/style.css/">
+      {% block head %}{% endblock %}
    </head>
    <body>
-      <h1>Zdarzenia sceniczne</h1>
-      <h2>{{ time }}</h2>
+    {% block body %}{% endblock %}
    </body>
 </html>
