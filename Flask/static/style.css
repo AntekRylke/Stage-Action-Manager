@@ -19,7 +19,19 @@ td {
     text-align: center;
     padding: 5px;
 }
-
+.ip input{
+    float:left;
+    width: 20px;
+    flex-direction: row;
+    display: flex;
+}
+.ip {
+    float: left;
+    flex-direction: row;
+    display: flex;
+}
 .form {
-    margin-top: 20px;
+    margin-top: 20pt;
+    flex-direction: row;
+    display: flex;
 }

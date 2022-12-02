@@ -5,10 +5,9 @@
 {% endblock %}
 
 {% block body %}
-
 <h1>Zdarzenia sceniczne</h1>
-    <h2>{{ time }}</h2>
-    <h3>Sterowanie klientem:</h3>
+
+    <h3>Sterowanie urządzeniem:</h3>
    <table>
     <tr>
         <th>Urządzenie</th>
@@ -23,15 +22,31 @@
         <td><form action="/" method="POST">
             <input type="submit" value="Gotowy?" name="gotowy"></form>
         <td><form action="/" method="POST">
-            <input type="submit" value="Akcja!" name="akcja" />
+            <input type="submit" value="Akcja!" name="akcja"></form>
         </form></td>
         <td></td>
     </tr>
    </table>
    <table>
-    {% for row in client_data %}
     <tr>
-        <td></td>
+        <th>Urządzenie</th>
+        <th>Adres</th>
+        <th>Polecenie 1</th>
+        <th>Polecenie 2</th>
     </tr>
-   </table> 
+    {% for row in client_data.values() %}
+        <tr>
+          <td>{{ row['name'] }}</td>
+          <td>{{ row['IP'] }}</td>
+          {% if row['type'] == 'sygnalizator' %}
+          <td><form action="/" method="POST">
+            <input type="submit" value="Gotowy?" name="gotowy"></form>
+        <td><form action="/" method="POST">
+            <input type="submit" value="Akcja!" name="akcja"></form>
+          {% endif %}
+        </tr>
+    {% endfor %}
+    </table>
+    <form action="/newclient" method="POST">
+        <input type="submit" value="Dodaj nowego klienta" name="Dodaj nowego klienta"></form>
 {% endblock %}

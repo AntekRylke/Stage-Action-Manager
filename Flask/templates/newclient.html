@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>{{ title }}</title>
+{% endblock %}
+
+{% block body %}
+<h1>Zdarzenia sceniczne</h1>
+
+    <h3>Dodaj nowe urządzenie:</h3>
+   <table>
+    <tr>
+        <th>ID</th>
+		<th>Nazwa</th>
+        <th>Adres</th>
+        <th>Typ</th>
+        <th>Działanie</th>
+    </tr>
+    {% for row in client_data.values() %}
+        <tr>
+		  <td>{{ row['ID'] }}</td>
+		  <td>{{ row['name'] }}</td>
+          <td>{{ row['IP'] }}</td>
+          <td>{{ row['type'] }}</td>
+		  <td><form action="/" method="POST">
+            <input type="submit" value="Skasuj" name="skasuj"></form>
+        </tr>
+		{% endfor %}
+		<tr>
+			<td>{{ client_number }}</td>
+			<td><form action="/newclient" method="POST">
+				<input type="text" value="" name="name"></form></td>
+			<td><div class="ip">
+				<form action="/newclient" method="POST">
+				<input type="text" value="" name="IP_1"></form>.
+				<form action="/newclient" method="POST">
+				<input type="text" value="" name="IP_2"></form>.
+				<form action="/newclient" method="POST">
+				<input type="text" value="" name="IP_3"></form>.
+				<form action="/newclient" method="POST">
+				<input type="text" value="" name="IP_4"></form></div></td>
+			<td><form>
+				<select name = "dropdown">
+				   <option value = "Sygnalizator" selected>Sygnalizator</option>
+				   <option value = "Elektrozamek">Elektrozamek</option>
+				   <option value = "Przekaźniki">Przekaźniki</option>
+				</select>
+			 </form></td>
+			 <td><form action="/newclient" method="POST">
+				<input type="submit" value="Dodaj" name="dodaj"></form></td>
+		</tr>
+
+    </table>
+
+{% endblock %}
