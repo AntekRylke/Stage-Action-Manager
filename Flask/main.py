@@ -84,17 +84,13 @@ def newclient():
       'client_number' : client_number
       }
 
-   newclient = []
-   newclient.append("3")
-   print(repr(client_number))
       
    if request.method == 'POST':
       if request.form.get('dodaj') == "Dodaj":
-         # inicjalizacja zmiennej, przechowującej informacje o nowym urządzeniu klienckim
+         # Utworzenie zmiennej, przechowującej informacje o nowym urządzeniu klienckim
          newclient = []
-         newclient.append("3")
-         print(repr(client_number))
-         #newclient.append(str(len(client_data)))
+         newclient.append(str(len(client_data))) # ID
+         newclient.append
          #newclient("client_data.csv", )
          #client_data[]["ID"] = len(client_data)
          #client_data[len(client_data)]["name"] = request.form.get('name')
