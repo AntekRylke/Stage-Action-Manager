@@ -90,7 +90,8 @@ def newclient():
          # Utworzenie zmiennej, przechowującej informacje o nowym urządzeniu klienckim
          newclient = []
          newclient.append(str(len(client_data))) # ID
-         newclient.append
+         newclient.append(request.form.get('IP_1') + "." + request.form.get('IP_2') + "." + request.form.get('IP_3') + "." + request.form.get('IP_4'))
+         
          #newclient("client_data.csv", )
          #client_data[]["ID"] = len(client_data)
          #client_data[len(client_data)]["name"] = request.form.get('name')
