@@ -8,27 +8,9 @@
 <h1>Zdarzenia sceniczne</h1>
 
     <h3>Sterowanie urządzeniem:</h3>
-   <table>
+     <table>
     <tr>
-        <th>Urządzenie</th>
-        <th>Adres</th>
-        <th>Polecenie 1</th>
-        <th>Polecenie 2</th>
-        <th>Polecenie 3</th>
-    </tr>
-    <tr>
-        <td>Sygnalizator 1</td>
-        <td>192.168.1.51</td>
-        <td><form action="/" method="POST">
-            <input type="submit" value="Gotowy?" name="gotowy"></form>
-        <td><form action="/" method="POST">
-            <input type="submit" value="Akcja!" name="akcja"></form>
-        </form></td>
-        <td></td>
-    </tr>
-   </table>
-   <table>
-    <tr>
+        <th>ID</th>
         <th>Urządzenie</th>
         <th>Adres</th>
         <th>Polecenie 1</th>
@@ -36,17 +18,25 @@
     </tr>
     {% for row in client_data.values() %}
         <tr>
+          <td>{{ row['ID'] }}</td>
           <td>{{ row['name'] }}</td>
           <td>{{ row['IP'] }}</td>
-          {% if row['type'] == 'sygnalizator' %}
-          <td><form action="/" method="POST">
+          {% if row['type'] == 'Sygnalizator' %}
+          <td><form action="/gotowy?ip={{ row['IP'] }}" method="POST">
             <input type="submit" value="Gotowy?" name="gotowy"></form>
-        <td><form action="/" method="POST">
+        <td><form action="/akcja?ip={{ row['IP'] }}" method="POST">
             <input type="submit" value="Akcja!" name="akcja"></form>
+          {% endif %}
+          {% if row['type'] == 'Przekazniki' %}
+          <td><form action="/przekaznik?ip={{ row['IP'] }}" method="POST">
+            <input type="submit" value="Załącz" name="zalacz"></form>
+        <td><form action="/przekaznik?ip={{ row['IP'] }}" method="POST">
+            <input type="submit" value="Wyłącz" name="wylacz"></form>
           {% endif %}
         </tr>
     {% endfor %}
     </table>
+    <br>
     <form action="/newclient" method="POST">
-        <input type="submit" value="Dodaj nowego klienta" name="Dodaj nowego klienta"></form>
+        <input type="submit" value="Dodaj lub skasuj klienta" name="dodaj lub skasuj klienta"></form>
 {% endblock %}

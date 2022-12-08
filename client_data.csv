@@ -1,3 +1,6 @@
 ID,IP,name,type
-0,192.168.1.51,Sygnalizator1,sygnalizator
-1,192.168.1.52,Sygnalizator2,sygnalizator
+0,192.168.1.51,Sygnalizator1,Sygnalizator
+1,192.168.1.52,Sygnalizator2,Sygnalizator
+2,123.123.21.1,dhnsajik,Sygnalizator
+3,123.123.21.1,dhnsajik,Sygnalizator
+4,123.123.123.1,dsa,Sygnalizator

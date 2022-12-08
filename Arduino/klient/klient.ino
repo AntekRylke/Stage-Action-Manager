@@ -6,6 +6,7 @@
 
 // Biblioteka do komunikacji z wyświetlaczem LCD
 #include <Wire.h>
+
 int i2c_address = 0x30; // Adres układu sterującego wyświetlaczem na szynie I2C (0x30 - 42 dziesiętnie)
 int lcd_control(String command); // Deklaracja funkcji udostępnionej przez REST API
 // Inicjalizacja zmiennych do komunikacji sieciowej

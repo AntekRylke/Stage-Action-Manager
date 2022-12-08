@@ -2,8 +2,9 @@ body {
     background: gray;
     color: whitesmoke;
  }
+
 table, td, th {
-    border: 1px solid #aaa;
+    border: 2pt solid #aaa;
 }
 
 table {
@@ -12,6 +13,7 @@ table {
 }
 
 th {
+    text-align: center;
     height: 30px;
 }
 
@@ -19,19 +21,25 @@ td {
     text-align: center;
     padding: 5px;
 }
+
+p {
+    color:blue;  
+    } 
+
 .ip input{
-    float:left;
+    float: center;
     width: 20px;
     flex-direction: row;
     display: flex;
 }
 .ip {
-    float: left;
+    float: center;
     flex-direction: row;
     display: flex;
 }
 .form {
     margin-top: 20pt;
     flex-direction: row;
+    float: center;
     display: flex;
 }
