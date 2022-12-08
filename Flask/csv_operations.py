@@ -14,6 +14,8 @@ def check_client(ip: str, name: str, type: str):
       return False
 
 def check_client_name(name: str):
+   if name == "":
+      return "Nazwa klienta nie może być pusta"
    client_data = read_csv("client_data.csv")
    for row in client_data:
       if name in client_data[row].values():
@@ -46,7 +48,7 @@ def check_client_ip(ip: str):
       return False
 
 def check_client_type(type: str):
-   if(type == "Sygnalizator") or (type == "Elektrozamek") or (type == "Przekaznik"):
+   if(type == "Sygnalizator") or (type == "Elektrozamek") or (type == "Przekazniki"):
       return False
    else:
       return "Typ klienta jest nieprawidłowy"

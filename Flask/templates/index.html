@@ -23,15 +23,25 @@
           <td>{{ row['IP'] }}</td>
           {% if row['type'] == 'Sygnalizator' %}
           <td><form action="/gotowy?ip={{ row['IP'] }}" method="POST">
-            <input type="submit" value="Gotowy?" name="gotowy"></form>
+            <input type="submit" value="Gotowy?" name="gotowy"></form></td>
         <td><form action="/akcja?ip={{ row['IP'] }}" method="POST">
-            <input type="submit" value="Akcja!" name="akcja"></form>
+            <input type="submit" value="Akcja!" name="akcja"></form></td>
           {% endif %}
           {% if row['type'] == 'Przekazniki' %}
-          <td><form action="/przekaznik?ip={{ row['IP'] }}" method="POST">
-            <input type="submit" value="Załącz" name="zalacz"></form>
-        <td><form action="/przekaznik?ip={{ row['IP'] }}" method="POST">
-            <input type="submit" value="Wyłącz" name="wylacz"></form>
+          <td>
+          Załącz
+          {% for i in range(1, 7) %}
+          <form action="/zalacz?ip={{ row['IP'] }}&relay={{ i }}" method="POST">
+            <input type="submit" value="{{ i }}" name="{{ i }}"></form>
+          {% endfor %}
+          </td>
+        <td>
+          Wyłącz
+          {% for i in range(1, 7) %}
+          <form action="/wylacz?ip={{ row['IP'] }}" method="POST">
+            <input type="submit" value="{{ i }}" name="{{ i }}"></form>
+          {% endfor %}
+          </td>
           {% endif %}
         </tr>
     {% endfor %}

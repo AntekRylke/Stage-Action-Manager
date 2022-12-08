@@ -51,11 +51,26 @@ def akcja():
       return redirect('/connection_error')
    return index()
 
+@server.route('/zalacz', methods=['GET', 'POST'])
+def close_relay():
+   ip = request.args.get('ip')
+   relay_number = int(request.args.get('relay')) + 10
+   try:
+      send_request("http://" + ip + "/lcd", params={'params': relay_number})
+   except:
+      return str(relay_number)
+      #return redirect('/connection_error')
+   return index()
+
 @server.route('/gotowy', methods=['GET', 'POST'])
 def gotowy():
    ip = request.args.get('ip')
    try:
       send_request("http://" + ip + "/lcd", params={'params': 0})
+   except:
+      return redirect('/connection_error')
+   return index()try:
+      send_request("http://" + ip + "/lcd", params={'params': 1})
    except:
       return redirect('/connection_error')
    return index()
@@ -108,11 +123,11 @@ def newclient():
          # False, gdy wartości są prawidłowe,
          # String, gdy wykryto błąd
          # Jeśli dane są niepoprawne, wyświetl wiadomość
-         if message := check_client_ip(newclient[1]): # := przypisz do zmiennej
-            flash(message)
          if message := check_client_name(newclient[2]):
             flash(message)
-         if message := check_client_type(newclient[3]):
+         elif message := check_client_ip(newclient[1]): # := przypisz do zmiennej
+            flash(message)
+         elif message := check_client_type(newclient[3]):
             flash(message)
          else:
              append_csv('client_data.csv', newclient)
