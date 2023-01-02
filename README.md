@@ -1,3 +1,0 @@
-# Inz
-Praca inżynierska
-Test

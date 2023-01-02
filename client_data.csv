@@ -1,9 +1,2 @@
 ID,IP,name,type
-0,192.168.1.51,Sygnalizator1,Sygnalizator
-1,192.168.1.52,Sygnalizator2,Sygnalizator
-2,192.168.1.55,dsadsa,Sygnalizator
-3,192.168.1.56,dsadsa,Sygnalizator
-4,192.168.1.50,dsadsadsa,Sygnalizator
-5,111.111.111.111,rdesafewrt23,Przekazniki
-6,111.111.222.111,dsadsavccxc,Sygnalizator
-7,111.121.111.111,dfsafdshyer,Elektrozamek
+0,192.168.1.51,Przekaznik1,Przekazniki
