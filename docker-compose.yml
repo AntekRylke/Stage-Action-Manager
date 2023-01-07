@@ -1,0 +1,14 @@
+version: '3'
+services:
+  serwer:
+    image: system-sterowania-sceny:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    restart: 'always'
+    volumes:
+      - "./client_data.csv:/docker/client_data.csv"
+volumes:
+  client_data:

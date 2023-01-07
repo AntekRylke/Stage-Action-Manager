@@ -1,0 +1,8 @@
+*
+!static/
+!templates/
+!csv_operations.py
+!main.py
+!net_operations.py
+!requirements.txt
+!server_config.py

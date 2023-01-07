@@ -2,6 +2,7 @@
 import datetime
 # Import bibliotek do wystawienia serwera HTTP
 from flask import Flask, render_template, request, redirect, flash
+from waitress import serve
 # Import biblioteki z własnymi funkcjami operującymi na plikach .CSV
 from csv_operations import *
 from net_operations import *
@@ -149,7 +150,6 @@ def newclient():
    return render_template('newclient.html', **templateData)
 
 if __name__ == "__main__":
-   server.run(host='0.0.0.0', port=80, debug=True)
-   client_data = read_csv('client_data.csv')
+   serve(server, host="0.0.0.0", port=80)
 
   
