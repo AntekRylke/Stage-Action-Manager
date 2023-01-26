@@ -1,10 +1,7 @@
-#include <aREST.h>
-
-// Biblioteki do komunikacji sieciowej
+#include <SPI.h>
 #include <Ethernet.h>
-
+#include <aREST.h>
 #include "libraries/Watchdog/wdt.h"
-// Biblioteka do komunikacji z wyświetlaczem LCD
 #include <Wire.h>
 
 int i2c_address = 0x30; // Adres układu sterującego wyświetlaczem na szynie I2C (0x30 - 42 dziesiętnie)
@@ -15,7 +12,7 @@ EthernetServer server(80);
 aREST rest = aREST();
 byte mac[] = { 0x90, 0xA2, 0xDA, 0x10, 0xCC, 0x57 };
 byte ip[] = { 192, 168, 1, 51 };
-byte router[] = { 192, 168, 1, 1 }; // Opcjonalny
+byte router[] = { 192, 168, 1, 1 };
 byte dns[] = { 192, 168, 1, 50 }; // DNS obsługiwany przez serwer
 byte subnet_mask[] { 255, 255, 255, 0 };
 // Inicjalizacja zmiennych serwera HTTP
@@ -33,37 +30,31 @@ int lcd_control(String command)
     Wire.beginTransmission(i2c_address);
     Wire.write(0x2);
     Wire.write(32);
-    if (state == 0) // Polecenie Gotowy
-    {
+    if (state == 0){ // Polecenie Gotowy
       Wire.write("Gotowy?");
-      Serial.println ("Otrzymano polecenie GOTOWOSC");// Wyślij potwierdzenie otrzymania polecenia
+      Serial.println("Otrzymano polecenie GOTOWOSC"); // Wyślij potwierdzenie otrzymania polecenia
     }
-    else if (state == 1) // Polecenie Akcja
-    {
+    else if (state == 1){ // Polecenie Akcja
       Wire.write("Akcja!");
-      Serial.println ("Otrzymano polecenie AKCJA");// Wyślij potwierdzenie otrzymania polecenia
+      Serial.println("Otrzymano polecenie AKCJA"); // Wyślij potwierdzenie otrzymania polecenia
     }
-    // Sygnał kontrolny z serwera
-    else if (state == 2)
-    {
+    else if (state == 2){ // Sygnał kontrolny z serwera
       Wire.write("Serwer gotowy");
-      Serial.println ("Aplikacja serwera zostala uruchomiona");// Wyślij potwierdzenie otrzymania polecenia
+      Serial.println("Aplikacja serwera zostala uruchomiona"); // Wyślij potwierdzenie otrzymania polecenia
     }
-    else if (16 >= state > 10) // Zamknięcie przekaźnika
-    {
+    else if (16 >= state > 10){ // Zamknięcie przekaźnika
       int relay_pin = state - 10; // Styk GPIO przekaznika
       digitalWrite(relay_pin, 1);
-      Serial.println ("Zamknieto przekaznik " + relay_pin);// Wyślij potwierdzenie otrzymania polecenia
+      Serial.println("Zamknieto przekaznik " + relay_pin); // Wyślij potwierdzenie otrzymania polecenia
     }
-    else if (26 >= state > 20) // Otwarcie przekaźnika
-    {
+    else if (26 >= state > 20){ // Otwarcie przekaźnika
       int relay_pin = state - 20;
       digitalWrite(relay_pin, 0);
-      Serial.println ("Otwarto przekaznik " + relay_pin);// Wyślij potwierdzenie otrzymania polecenia
+      Serial.println("Otwarto przekaznik " + relay_pin); // Wyślij potwierdzenie otrzymania polecenia
     }
     Wire.endTransmission();
     delay(3000);
-    digitalWrite(5,0); // Wyłącz wyświetlacz
+    digitalWrite(5, 0); // Wyłącz wyświetlacz
     return 1;
   }
 void setup() {
@@ -77,8 +68,6 @@ void setup() {
   rest.function("lcd", lcd_control);  // Ustalenie sygnatury funkcji udostępnionej przez REST API
   rest.set_id("001"); // Ustalenie ID instancji REST API
   rest.set_name("sygnalizator"); // Ustalenie nazwy instancji REST API
-
-
   // Jeśli połączenie zostało ustanowione, wyświetl wiadomość powitalną
     digitalWrite(5, HIGH); // Uruchom zasilanie wyświetlacza
     Wire.begin(); // Inicjalizacja biblioteki Wire
@@ -92,7 +81,6 @@ void setup() {
     // Koniec wiadomości powitalnej
   digitalWrite(5, LOW); // Wyłącz wyświetlacz
   wdt_enable(WDTO_8S); // Uruchom watchdog w razie zawieszenia się mikrokontrolera
-  rest.set_status_led(4);
 }
 
 void loop()
@@ -100,5 +88,6 @@ void loop()
   // Nasłuchuj klientów
   client = server.available();
   rest.handle(client);
+  // Zresetuj Watchdog Timer
   wdt_reset();
 }

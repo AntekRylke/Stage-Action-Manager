@@ -1,9 +1,7 @@
-# Import bibliotek ogólnego przeznaczenia
-import datetime
 # Import bibliotek do wystawienia serwera HTTP
 from flask import Flask, render_template, request, redirect, flash
 from waitress import serve
-# Import biblioteki z własnymi funkcjami operującymi na plikach .CSV
+# Import funkcji z pozostałych
 from csv_operations import *
 from net_operations import *
 
@@ -14,7 +12,6 @@ client_data = read_csv('client_data.csv')
 # Inicjalizacja serwera
 server = Flask(__name__)
 server.config.from_pyfile('server_config.py')
-
 
  # Wykonaj testowe połączenie z klientami
 for row in client_data:
@@ -28,15 +25,11 @@ for row in client_data:
 # Obsługa strony głównej
 @server.route('/', methods=['GET', 'POST'])
 def index():
-   now = datetime.datetime.now()
-   timeString = now.strftime("%Y-%m-%d %H:%M")
    client_data = read_csv("client_data.csv")
    templateData = {
       'title' : 'Obsługa zdarzeń scenicznych',
       'client_data' : client_data,
-      'time': timeString
       }
-
    if request.method == 'POST':
       if request.form.get('Dodaj lub skasuj klienta') == "dodaj lub skasuj klienta":
          redirect('/newclient')
@@ -58,8 +51,6 @@ def close_relay():
    try:
       send_request("http://" + ip + "/lcd", params={'params': relay_number})
    except:
-      pass
-      #return str(relay_number)
       return redirect('/connection_error')
    return index()
 
@@ -83,11 +74,6 @@ def gotowy():
    except:
       return redirect('/connection_error')
    return index()
-   try:
-      send_request("http://" + ip + "/lcd", params={'params': 1})
-   except:
-      return redirect('/connection_error')
-   return index()
 
 # Błąd połączenia z urządzeniem klienckim
 @server.route('/connection_error', methods=['GET', 'POST'])
@@ -108,16 +94,13 @@ def deleteclient():
 # Obsługa wprowadzania nowych urządzeń klienckich
 @server.route('/newclient', methods=['GET', 'POST'])
 def newclient():
-   now = datetime.datetime.utcnow()
    client_data = read_csv('client_data.csv')
-   timeString = now.strftime("%Y-%m-%d %H:%M")
    client_number = len(client_data)
    templateData = {
       'title' : 'Dodawanie nowych urządzeń',
       'client_data' : client_data,
       'client_number' : client_number
       }
-
    if request.method == 'POST':
       if request.form.get('dodaj') == "Dodaj":
          # Przechowanie informacji z pól formularza
@@ -146,7 +129,6 @@ def newclient():
          else:
              append_csv('client_data.csv', newclient)
          return redirect("/newclient")
-
    return render_template('newclient.html', **templateData)
 
 if __name__ == "__main__":

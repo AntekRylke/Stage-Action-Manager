@@ -9,41 +9,47 @@
     <h3>Dodaj nowe urządzenie:</h3>
    <table>
     <tr>
-        <th>ID</th>
-		<th>Nazwa</th>
-        <th>Adres</th>
-        <th>Typ</th>
-        <th>Działanie</th>
-    </tr>
-    {% for row in client_data.values() %}
-        <tr>
-		  <td>{{ row['ID'] }}</td>
-		  <td>{{ row['name'] }}</td>
-          <td>{{ row['IP'] }}</td>
-          <td>{{ row['type'] }}</td>
-		  <td><form action="/deleteclient?id={{ row['ID'] }}" method="POST">
-            <input type="submit" value="Skasuj" name="skasuj"></form>
-        </tr>
-		{% endfor %}
-		<tr>
-			<td>{{ client_number }}</td>
-			<td><form action="/newclient" method="POST">
-				<p><input type="text" name="name"></p></td>
-			<td><div class="ip">
+        <th>ID</th><th>Nazwa</th><th>Adres</th><th>Typ</th><th>Działanie</th>
+	</tr>
+	{% for row in client_data.values() %}
+	<tr>
+		<td>{{ row['ID'] }}</td>
+		<td>{{ row['name'] }}</td>
+		<td>{{ row['IP'] }}</td>
+		<td>{{ row['type'] }}</td>
+		<td>
+			<form action="/deleteclient?id={{ row['ID'] }}" method="POST">
+				<input type="submit" value="Skasuj" name="skasuj">
+			</form>
+	</tr>
+	{% endfor %}
+	<tr>
+		<td>{{ client_number }}</td>
+		<td>
+			<form action="/newclient" method="POST">
+				<p><input type="text" name="name"></p>
+		</td>
+		<td>
+			<div class="ip">
 				<p><input type="text" value="" name="IP_1"></p>
 				.<p><input type="text" value="" name="IP_2"></p>
 				.<p><input type="text" value="" name="IP_3"></p>
-				.<p><input type="text" value="" name="IP_4"></p></div></td>
-			<td><p>
-				<select name = "type">
-				   <option value = "Sygnalizator" selected>Sygnalizator</option>
-				   <option value = "Elektrozamek">Elektrozamek</option>
-				   <option value = "Przekazniki">Przekazniki</option>
+				.<p><input type="text" value="" name="IP_4"></p>
+			</div>
+		</td>
+		<td>
+			<p>
+				<select name="type">
+					<option value="Sygnalizator" selected>Sygnalizator</option>
+					<option value="Elektrozamek">Elektrozamek</option>
+					<option value="Przekazniki">Przekazniki</option>
 				</select>
-			 </p></td>
-			 <td><input type="submit" value="Dodaj" name="dodaj"></form></td>
-		</tr>
-    </table>
+			</p>
+		</td>
+		<td><input type="submit" value="Dodaj" name="dodaj"></form>
+		</td>
+	</tr>
+	</table>
 	<br>
 	{% with messages = get_flashed_messages() %}
    {% if messages %}
